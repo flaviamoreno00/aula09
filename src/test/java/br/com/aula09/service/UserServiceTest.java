@@ -48,6 +48,13 @@ class UserServiceTest {
     }
 
     @Test
+    void deveTratarHeaderNuloCorretamente() {
+        assertEquals("Todos os Usuários", userService.formatarHeader(null));
+        assertEquals("Todos os Usuários", userService.formatarHeader("   "));
+        assertEquals("Usuários Biz", userService.formatarHeader("Usuários Biz"));
+    }
+
+    @Test
     void deveLimparUsuariosCorretamente() {
         userService.carregarUsuarios();
         assertEquals(10, userService.getTotalUsuarios());

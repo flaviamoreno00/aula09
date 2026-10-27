@@ -45,6 +45,19 @@ public class UserService {
     }
 
     /**
+     * Formata o cabeçalho de exibição tratando referências nulas (hotfix/header-null e issue-123).
+     *
+     * @param titulo título do cabeçalho
+     * @return cabeçalho seguro nunca nulo
+     */
+    public String formatarHeader(String titulo) {
+        if (titulo == null || titulo.isBlank()) {
+            return "Todos os Usuários";
+        }
+        return titulo.trim();
+    }
+
+    /**
      * Retorna todos os usuários carregados.
      *
      * @return lista imutável de usuários
@@ -75,13 +88,13 @@ public class UserService {
     }
 
     /**
-     * Filtra os usuários cujo e-mail termina com ".biz" (Usuários Biz).
+     * Filtra os usuários cujo e-mail termina com ".biz" (Usuários Biz), tratando nulos.
      *
      * @return lista de usuários com e-mail .biz
      */
     public List<Usuario> usuariosComEmailBiz() {
         return usuarios.stream()
-                .filter(u -> u.getEmail() != null && u.getEmail().endsWith(".biz"))
+                .filter(u -> u != null && u.getEmail() != null && u.getEmail().endsWith(".biz"))
                 .collect(Collectors.toList());
     }
 
